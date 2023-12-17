@@ -1,0 +1,75 @@
+<html lang="en">
+    <head>
+        <title>Circle Pattern</title>
+    </head>
+    <body>
+        <canvas id="pattern" width="500px" height="500px"></canvas>
+    </body>
+</html>
+
+<style>
+
+    body {
+
+        background: rgb(100, 100, 100);
+
+    }
+
+    canvas {
+
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: 5px solid white;
+        border-radius: 5%;
+
+    }
+
+</style>
+
+<script>
+
+    const amount = 100;
+
+    const canvas = document.getElementById("pattern");
+    const ctx = canvas.getContext("2d");
+
+    const points = [];
+
+    for (let i = 1; i < amount; i++) {
+
+        points.push([250, 250 - (i * 140/amount), Math.PI]);
+
+    }
+
+    setInterval(() => {
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        for (let i = 1; i < points.length; i++) {
+
+            points[i][2] += (i+1) / (amount * 50);
+            points[i][0] = (Math.sin(points[i][2]) * ((i+1) * (140/amount))) + 250;
+            points[i][1] = (Math.cos(points[i][2]) * ((i+1) * (140/amount))) + 250;
+
+            ctx.beginPath();
+            ctx.arc(points[i][0], points[i][1], 5, 0, 2 * Math.PI);
+            ctx.fillStyle = 'hsl('+ (360/points.length*i) +',100%,50%)';
+            ctx.fill();
+
+        }
+
+        for (let i = 1; i < points.length-1; i++) {
+
+            ctx.beginPath();
+            ctx.moveTo(points[i][0], points[i][1]);
+            ctx.lineTo(points[i+1][0], points[i+1][1]);
+            ctx.strokeStyle = 'hsl('+ (360/points.length*i) +',100%,50%)';
+            ctx.stroke();
+
+        }
+
+    }, 5);
+
+</script>
