@@ -1,0 +1,76 @@
+<div id="canvas">
+    <div id="b-1-1" class="ball" style="width:1024;height:1024;top:0;left:0;"></div>
+</div><br>
+
+<style>
+
+    .ball {
+
+        border-radius: 50%;
+        position: absolute;
+        background: rgb(0, 0, 0);
+
+    }
+
+</style>
+
+<script>
+
+    let balls = document.getElementsByClassName("ball");
+    let canvas = document.getElementById("canvas");
+    let num = 2;
+
+    function assignClicks() {
+
+        for (let i = 0; i < balls.length; i++) {
+
+            let ballIn = balls[i];
+
+            ballIn.addEventListener("mouseover", () => {
+
+                pop(ballIn);
+
+            });
+
+        }
+
+    }
+
+    function pop(ballIn) {
+
+        console.log("clicked");
+
+        let width = parseInt(ballIn.style.width);
+        let height = width;
+        let top = parseInt(ballIn.style.top);
+        let left = parseInt(ballIn.style.left);
+        let id = ballIn.id;
+        let list = id.split("-");
+        let pos = parseInt(list[1]);
+
+        let nWidth = width / 2;
+        let nHeight = nWidth;
+        let nTop = [top, top, top + nHeight, top + nHeight];
+        let nLeft = [left, left + nWidth, left, left + nWidth];
+
+        if (pos < 7) {
+
+            for (let i = 0; i < 4; i++) { 
+
+                canvas.innerHTML = canvas.innerHTML + "<div id='b-" + (pos+1) + "-" + num + "' class='ball' style='width:" + nWidth + ";height:" + nHeight + ";top:" + nTop[i] + ";left:" + nLeft[i] + ";background:hsl(" + ((pos * 35) - 70) + ", 100%, 75%'></div>"; 
+                num ++;
+
+            }
+
+            document.getElementById(id).remove();
+
+            balls = document.getElementsByClassName("ball");
+            assignClicks();
+
+        }
+
+    }
+
+    assignClicks();
+
+</script>
