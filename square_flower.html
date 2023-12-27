@@ -1,0 +1,80 @@
+<html lang="en">
+    <head>
+        <title>Circle Pattern</title>
+    </head>
+    <body>
+        <canvas id="pattern" width="500px" height="500px"></canvas>
+    </body>
+</html>
+
+<style>
+
+    body {
+
+        background: rgb(100, 100, 100);
+
+    }
+
+    canvas {
+
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: 5px solid white;
+        border-radius: 5%;
+
+    }
+
+</style>
+
+<script>
+
+		const amount = 25;
+
+    const canvas = document.getElementById("pattern");
+    const ctx = canvas.getContext("2d");
+    
+    const Pi = [0, Math.PI / 2, Math.PI, (3*Math.PI) / 2];
+    
+    let a = 0;
+    let timeInterval = 5;
+
+    setInterval(() => {
+				
+        a += timeInterval/(1000 * amount/10);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        for (let i = amount; i > 0; i--) {
+        		
+            ctx.fillStyle = 'hsl(' + (((275 - 200) / amount * i) + 200) + ',100%,50%)';
+        		ctx.beginPath();
+            
+            ctx.moveTo(getX(a, i, Pi[0]), getY(a, i, Pi[0]));
+            ctx.lineTo(getX(a, i, Pi[1]), getY(a, i, Pi[1]));
+            ctx.lineTo(getX(a, i, Pi[2]), getY(a, i, Pi[2]));
+            ctx.lineTo(getX(a, i, Pi[3]), getY(a, i, Pi[3]));
+            ctx.lineTo(getX(a, i, Pi[0]), getY(a, i, Pi[0]));
+            
+            ctx.closePath();
+            ctx.fill();
+        
+        }
+
+    }, timeInterval);
+    
+    
+    
+    function getX(A, I, num) {
+    
+    		return (((2 * I) / 5) * (Math.cos(((A*I) / 10) + num)) * (amount)) + 250;
+    
+    }
+    
+    function getY(A, I, num) {
+    
+    		return (((2 * I) / 5) * (Math.sin(((A*I) / 10) + num)) * (amount)) + 250;
+    
+    }
+
+</script>
