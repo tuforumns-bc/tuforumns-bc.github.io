@@ -1,0 +1,225 @@
+<html>
+
+    <head><title>About Me</title></head>
+
+    <body>
+
+        <!--TOMORROW - Custom Cursor-->
+        <img id="bgimg" src="homePageAssets/bg.png" style="position:absolute;width:100%;height:100%;top:50%;left:50%;transform:translate(-50%, -50%);">
+
+        <div id="title-box">
+            <p>
+                BypassedChicken'sㅤAboutㅤMeㅤPage
+            </p>
+        </div>
+
+        <div id="mainBox-irlInfo" class="box">
+            <div class="box-tri1">
+                <div class="box-tri11"></div>
+            </div>
+            <div class="box-tri2">
+                <div class="box-tri21"></div>
+            </div>
+            <p>AboutㅤMe</p>
+            <p>Name :ㅤLeroy</p>
+            <p>Age :ㅤ13</p>
+            <p>Birthday :ㅤ5thㅤAugust</p>
+            <p>Hobbies :ㅤ</p>
+            <li>
+                GeometryㅤDash
+            </li>
+            <li>
+                ADOFAIㅤ(Topㅤ#209ㅤinㅤworld)
+            </li>
+            <li>
+                Coding / Hacking
+            </li>
+        </div>
+
+        <div id="mainBox-YT" class="box">
+            <div class="box-tri1">
+                <div class="box-tri11"></div>
+            </div>
+            <div class="box-tri2">
+                <div class="box-tri21"></div>
+            </div>
+            <br>
+            <img id="yt-click" src="https://www.svgrepo.com/show/13671/youtube.svg" width="100px" height="66px"><p id="yt-title">Bypassed Chicken</p>
+            <p>^^ㅤClickㅤMe!ㅤ^^</p>
+            <p id="yt-sub-count"></p>
+            <p id="yt-view-count"></p>
+            <p id="yt-vid-count"></p>
+        </div>
+
+    </body>
+
+</html>
+
+
+
+
+
+<style>
+
+    .box {
+        position: absolute;
+        border: 3px solid rgb(145, 0, 39);
+        background: rgba(46, 46, 46, 0.5);
+        box-shadow: 5px 5px rgba(145, 0, 39, 0.5);
+        scale: 100%;
+        transition: ease-out 0.3s;
+    }
+
+    .box:hover {
+        scale: 110%;
+        transition: ease-out 0.3s;
+        background: rgba(70, 70, 70, 0.5);
+        transform: rotate(2deg);
+    }
+
+    .box-tri1 {
+        width: 0;
+        height: 0;
+        top: -20px;
+        left: -20px;
+        border-style: solid;
+        border-width: 66px 66px 0 0;
+        border-color: rgb(133, 0, 36) transparent transparent transparent;
+        position: absolute;
+    }
+
+    .box-tri11 {
+        width: 0;
+        height: 0;
+        top: -63px;
+        left: 4px;
+        border-style: solid;
+        border-width: 55px 55px 0 0;
+        border-color: rgb(168, 0, 45) transparent transparent transparent;
+        position: absolute;
+    }
+
+    .box-tri2 {
+        width: 0;
+        height: 0;
+        top: calc(100% - 40px);
+        left: calc(100% - 40px);
+        border-style: solid;
+        border-width: 66px 66px 0 0;
+        border-color: rgb(133, 0, 36) transparent transparent transparent;
+        position: absolute;
+        transform: rotate(180deg);
+    }
+
+    .box-tri21 {
+        width: 0;
+        height: 0;
+        top: -63px;
+        left: 4px;
+        border-style: solid;
+        border-width: 55px 55px 0 0;
+        border-color: rgb(168, 0, 45) transparent transparent transparent;
+        position: absolute;
+    }
+
+
+
+
+
+    #mainBox-irlInfo {
+
+        padding: 5px;
+        width: 350px;
+        height: 250px;
+        top: 20%;
+        left: 15%;
+
+    }
+
+    #mainBox-YT {
+
+        width: 200px;
+        height: 225px;
+        top: 50%;
+        left: 80%;
+
+    }
+
+    @font-face {
+
+        font-family: cusomFont;
+        src: url(homePageAssets/font.ttf);
+
+    }
+
+    p, li {
+
+        color: white;
+        font-family: cusomFont;
+        margin: 10px;
+
+    }
+
+    #yt-title {
+
+        position: absolute;
+        top: 15%;
+        left: 90%;
+        transform: translate(-100%, 0);
+        text-align: center;
+
+    }
+
+    #title-box {
+
+        position: absolute;
+        top: -5px;
+        left: 50%;
+        transform: translate(-50%, 0);
+        width: 600px;
+        height: 50px;
+        text-align: center;
+        border: 3px solid rgb(145, 0, 39);
+        background: rgba(46, 46, 46, 0.5);
+        box-shadow: 5px 5px rgba(145, 0, 39, 0.5);
+        box-shadow: 10px 10px rgba(102, 0, 27, 0.5);
+        font-size: 25px;
+        display: flex;
+
+    }
+
+</style>
+
+
+
+
+
+<script>
+
+    let Userid = "UCbB6kvEZWOrEOhhhe7l1qLg";
+    let APIKey = "AIzaSyAvW8Fe_CqIUHzYw2aSMKCe247NtSewmJY";
+    fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${Userid}&key=${APIKey}`)
+        .then(response => {
+            return response.json()
+        })
+        .then(data => {
+            console.log(data["items"][0].statistics.subscriberCount + ", " + data["items"][0].statistics.viewCount + ", " + data["items"][0].statistics.videoCount);
+            gI("yt-sub-count").innerHTML = "Subs:ㅤ " + data["items"][0].statistics.subscriberCount;
+            gI("yt-view-count").innerHTML = "Views:ㅤ  " + data["items"][0].statistics.viewCount;
+            gI("yt-vid-count").innerHTML = "Videos:ㅤ  " + data["items"][0].statistics.videoCount;
+            
+        });
+
+    gI("yt-click").addEventListener("click", (e) => {
+
+        window.open("https://www.youtube.com/@BypassedChicken");
+
+    });
+
+    function gI(id_) {
+
+        return document.getElementById(id_);
+
+    }
+
+</script>
