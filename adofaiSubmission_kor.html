@@ -1,0 +1,756 @@
+<html>
+
+    <head><title>ADOFAI Submission Page</title></head>
+    
+    <body>
+
+        <p id="changeLang">다른 언어 선택 </p>
+        <a href="english.html" id="changeKorean">english</a>
+
+        <div id="container">
+            <br><br><br><br>
+            <p id="title"></p>
+            <p id="tstamp"></p>
+            <p id="channel"></p>
+            <p id="lvlName"></p>
+            <p id="lvlArtist"></p>
+            <p id="lvlCreator"></p>
+            <p id="lvlDiff"></p>
+            <input placeholder="레벨 ID" class="input" id="inId">
+            <input placeholder="속도 (예시: 1.2)" class="input" id="inSpeed">
+            <input placeholder="체감 난도" class="input" id="inFeel">
+            <input placeholder="영상 링크" class="input" id="inLink">
+            <input placeholder="대체 리더보드 이름" class="input" id="inName">
+            <p id="acc" style="font-size:50px;">--- 정확도 ---</p>
+            <div id="accDiv">
+
+                <!--<img src="demo.png" width="500px" style="opacity:33%;top:50px;position:absolute;">!-->
+                <p id="TE_">너무 빠름</p>
+                <p id="E_">빠름!</p>
+                <p id="EP_">빠름</p>
+                <p id="P_">정확</p>
+                <p id="LP_">느림</p>
+                <p id="L_">느림!</p>
+                <p id="accCalc">절대 정확도</p>
+                <input class="input" id="inTE">
+                <input class="input" id="inE">
+                <input class="input" id="inEP">
+                <input class="input" id="inP">
+                <input class="input" id="inLP">
+                <input class="input" id="inL">
+
+            </div>
+            <button onclick="Submit()" class="input" id="submit">제출 (1번만 클릭)</button>
+        </div>
+        
+        <p id="lvlSId">ID</p>
+        <p id="lvlSName">레벨명</p>
+        <p id="lvlSArtist">작곡가</p>
+        <p id="lvlSCreator">레벨 제작자</p>
+        <p id="lvlSDiff">난도</p>
+        <input id="searchBar" placeholder="곡 : ">
+        <div id="lvlSearch" style="overflow-y:scroll;overflow-x:hidden">
+
+        </div>
+
+        <button onclick="lvlRight()" id="lvlRight">></button>
+        <button onclick="lvlLeft()" id="lvlLeft"><</button>
+
+    </body>
+
+</html>
+
+<style>
+
+    @font-face {
+        font-family: 'adofai';
+        src: url('adofai.ttf') format('truetype'), /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    }
+
+
+
+    body { background: #666; }
+
+    input, button, body { font-family: 'adofai'; font-size: 20px; text-overflow:ellipsis;}
+
+    .input {
+
+        position: absolute;
+        width: 100px;
+        height: 28px;
+        border-radius: 10px;
+        background: rgb(55, 55, 55);
+        color: white;  
+        left: 33%;
+        scale: 100%;
+        rotate: 0deg;
+        transition: ease-out 0.15s;
+        border: none;
+
+    }
+
+    .input:hover {
+
+        scale: 110%;
+        rotate: 1deg;
+        box-shadow: 0px 0px 3px 3px #444;
+
+    }
+
+
+
+    #inId {
+        top: 30px;
+        left: 20px;
+    }
+
+    #inSpeed {
+        top: 70px;
+        left: 20px;
+    }
+
+    #inFeel {
+        top: 110px;
+        left: 20px;
+    }
+
+    #inLink {
+        top: 150px;
+        left: 20px;
+        width: 266px;
+    }
+
+    #inName {
+        top: 190px;
+        left: 20px;
+        width: 266px;
+    }
+
+    #inTE {
+        text-align: center;
+        top: 85px;
+        left: 170px;
+        width: 50px;
+        color: rgb(255, 0, 0);
+    }
+
+    #inE {
+        text-align: center;
+        top: 85px;
+        left: 285px;
+        width: 50px;
+        color: rgb(201, 135, 63);
+    }
+
+    #inEP {
+        text-align: center;
+        top: 55px;
+        left: 100px;
+        width: 50px;
+        color: rgb(239, 224, 53);
+    }
+
+    #inP {
+        text-align: center;
+        top: 55px;
+        left: 238px;
+        width: 115px;
+        color: rgb(94, 242, 53);
+    }
+
+    #inLP {
+        text-align: center;
+        top: 55px;
+        left: 455px;
+        width: 45px;
+        color: rgb(239, 224, 53);
+    }
+
+    #inL {
+        text-align: center;
+        top: 85px;
+        left: 395px;
+        width: 50px;
+        color: rgb(201, 135, 63);
+    }
+
+    #submit {
+        top: 500px;
+        left: 50%;
+        transform: translate(-50%, 0);
+        width: 200px;
+        text-align: center;
+    }
+
+
+
+    p {
+
+        color: white;
+        font-size: 30px;
+        font-family: 'adofai';
+
+    }
+
+    #container > p {
+        position: absolute;
+        font-size: 20px;
+    }
+
+    #accDiv > p {
+        position: absolute;
+    }
+
+    body > p {
+        position: absolute;
+    }
+
+
+
+    #title {
+        top: 20px;
+        left: 150px;
+        width: 300px;
+    }
+
+    #tstamp {
+        top: 70px;
+        left: 150px;
+        width: 300px;
+    }
+
+    #channel {
+        top: 100px;
+        left: 150px;
+        width: 300px;
+    }
+
+    #lvlName {
+        top: 20px;
+        left: 450px;
+        width: 300px;
+        font-size: 40px;
+    }
+
+    #lvlArtist {
+        top: 70px;
+        left: 450px;
+        width: 300px;
+        font-size: 40px;
+    }
+
+    #lvlCreator {
+        top: 100px;
+        left: 450px;
+        width: 300px;
+        font-size: 40px;
+    }
+
+    #lvlDiff {
+        top: 130px;
+        left: 450px;
+        width: 300px;
+        font-size: 40px;
+    }
+
+    #acc {
+        top: 180px;
+        font-size: 50px;
+        left: 50%;
+        transform: translate(-50%, 0);
+    }
+
+    #TE_ {
+        font-size: 25px;
+        top: 62px;
+        left: 82px;
+        scale: 125%;
+    }
+
+    #E_ {
+        font-size: 25px;
+        top: 62px;
+        left: 231px;
+        scale: 125%;
+    }
+
+    #EP_ {
+        font-size: 25px;
+        top: 31px;
+        left: 50px;
+        scale: 125%;
+    }
+
+    #P_ {
+        font-size: 25px;
+        top: 31px;
+        left: 180px;
+        scale: 125%;
+    }
+
+    #LP_ {
+        font-size: 25px;
+        top: 31px;
+        left: 400px;
+        scale: 125%;
+    }
+
+    #L_ {
+        font-size: 25px;
+        top: 62px;
+        left: 350px;
+        scale: 125%;
+    }
+
+    #accCalc {
+        font-size: 25px;
+        top: 90px;
+        left: 56px;
+        scale: 125%;
+        transform: translate(0, 0);
+    }
+
+
+
+    #container {
+
+        width: 800px;
+        height: 550px;
+        border-radius: 20px;
+        background: rgb(35, 35, 35);
+        position: absolute;
+        top: 50%;
+        left: 40px;
+        transform: translate(0, -50%);
+        box-shadow: 0px 0px 40px 40px #888;
+
+    }
+
+    #accDiv {
+
+        width: 500px;
+        height: 150px;
+        border-radius: 20px;
+        left: 50%;
+        position: absolute;
+        transform: translate(-50%, 0);
+        top: 300px;
+        box-shadow: 0px 0px 10px 10px #444;
+        background: rgb(30, 30, 30);
+
+    }
+
+    #lvlSearch {
+
+        width: 810px;
+        height: 500px;
+        border-radius: 20px;
+        background: rgb(35, 35, 35);
+        position: absolute;
+        top: 50%;
+        left: calc(100% - 40px);
+        transform: translate(-100%, -50%);
+        box-shadow: 0px 0px 40px 40px #888;
+
+    }
+
+
+
+
+
+    .main {
+        position: absolute;
+        left: 0px;
+        width: 800px;
+        height: 100px;
+        text-align: center;
+        border: 1px solid black;
+    }
+
+    .id {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100px;
+        height: 100px;
+        background: rgb(30, 30, 30);
+    }
+
+    .name {
+        position: absolute;
+        top: 0px;
+        left: 100px;
+        width: 200px;
+        height: 100px;
+        background: rgb(40, 40, 40);
+    }
+    
+    .artist {
+        position: absolute;
+        top: 0px;
+        left: 300px;
+        width: 150px;
+        height: 100px;
+        background: rgb(50, 50, 50);
+    }
+
+    .charter {
+        position: absolute;
+        top: 0px;
+        left: 450px;
+        width: 250px;
+        height: 100px;
+        background: rgb(60, 60, 60);
+    }
+
+    .rate {
+        position: absolute;
+        top: 0px;
+        left: 700px;
+        width: 100px;
+        height: 100px;
+        font-size: 40px;
+        background: rgb(70, 70, 70);
+    }
+
+    #lvlRight {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        top: calc(50% + 300px);
+        left: calc(100% - 350px);
+        transform: translate(-100%, 0);
+        border-radius: 10px;
+        border: none;
+        background: rgb(40, 40, 40);
+        color: white;
+        font-size: 50px;
+    }
+
+    #lvlLeft {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        top: calc(50% + 300px);
+        left: calc(100% - 420px);
+        transform: translate(-100%, 0);
+        border-radius: 10px;
+        border: none;
+        background: rgb(40, 40, 40);
+        color: white;
+        font-size: 50px;
+    }
+
+    #searchBar {
+        position: absolute;
+        width: 400px;
+        height: 50px;
+        border: none;
+        border-radius: 10px;
+        top: 150px;
+        left: calc(100% - 200px);
+        transform: translate(-100%, -50%);
+        background: rgb(55, 55, 55);
+    }
+
+    #lvlSId {
+        top: calc(50% - 400px);
+        left: calc(100% - 810px);
+        font-size: 50px;
+        color: black;
+    }
+
+    #lvlSName {
+        top: calc(50% - 400px);
+        left: calc(100% - 710px);
+        font-size: 50px;
+        color: black;
+    }
+
+    #lvlSArtist {
+        top: calc(50% - 400px);
+        left: calc(100% - 550px);
+        font-size: 50px;
+        color: black;
+    }
+
+    #lvlSCreator {
+        top: calc(50% - 400px);
+        left: calc(100% - 350px);
+        font-size: 50px;
+        color: black;
+    }
+
+    #lvlSDiff {
+        top: calc(50% - 400px);
+        left: calc(100% - 160px);
+        font-size: 50px;
+        color: black;
+    }
+
+    #changeLang {
+        top: calc(50% - 400px);
+        left: 25%;
+        transform: translate(-50%, -50%);
+        color: black;
+    }
+
+    #changeKorean {
+        position: absolute;
+        top: calc(50% - 325px);
+        width: 75px;
+        height: 25px;
+        left: 25%;
+        transform: translate(-50%, -50%);
+        color: white;
+    }
+
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<script>
+
+    let select = 0;
+    
+    let data1 = [["P1","#0099ff"],["P2","#00a2ff"],["P3","#00aaff"],["P4","#00b2ff"],["P5","#00bbff"],["P6","#00c3ff"],["P7","#00ccff"],["P8","#00ddff"],["P9","#00e5ff"],["P10","#00eeff"],["P11","#00ffff"],["P12","#00ffe8"],["P13","#00ffd0"],["P14","#00ffb8"],["P15","#00ffaa"],["P16","#00ff88"],["P17","#00ff70"],["P18","#00ff48"],["P19","#00ff30"],["P20","#44ff15"],["G1","#F2A700"],["G2","#F09E08"],["G3","#EE9510"],["G4","#ED8C18"],["G5","#EB8420"],["G6","#EA7B28"],["G7","#E87230"],["G8","#E66938"],["G9","#E56040"],["G10","#E35848"],["G11","#E14F4F"],["G12","#E04657"],["G13","#DE3D5F"],["G14","#DC3467"],["G15","#DB2C6F"],["G16","#D92377"],["G17","#D71A7F"],["G18","#D61187"],["G19","#D4088F"],["G20","#D20097"],["U1","#7B4FB2"],["U2","#744AA8"],["U3","#6E469F"],["U4","#674295"],["U5","#613E8C"],["U6","#5A3A83"],["U7","#543679"],["U8","#4D3170"],["U9","#472D67"],["U10","#40295D"],["U11","#3A2554"],["U12","#33214A"],["U13","#2D1D41"],["U14","#261838"],["U15","#20142E"],["U16","#191025"],["U17","#130C1C"],["U18","#0C0812"],["U19","#060409"],["U20","#000000"],["-21","#ceadff"],[" ? ","#000000"],["? ","#241f1f"],["? ","#2f2b36"],["?","#443a57"],["-Grande-","#000000"],["Epic","#5f3001"],["-2","#434343"],["MP","#ffffff"]];
+
+    function loadLvls(filter) {
+
+        document.getElementById("lvlSearch").innerHTML = "<p style=\"font-size: 100px;\">로딩 중...</p>";
+
+        fetch('https://be.t21c.kro.kr/levels')
+            .then(res => res.json())
+            .then(data => {
+
+                let color = "#222222";
+                let aSel = select % (Math.floor(data.results.length / 100));
+                let list_ = [];
+
+                document.getElementById("lvlSearch").innerHTML = "";
+
+                let c = 0;
+
+                for (let i = 0; i < data.results.length; i++) {
+
+                    for (let j = 0; j < data1.length; j++) {
+
+                        if (data.results[i].pgu_diff == data1[j][0]) {
+
+                            color = data1[j][1];
+                            let s = data.results[i].song;
+                            let a = data.results[i].creator;
+                            let a2 = data.results[i].artist;
+
+                            if (filter == "") {
+
+                                list_.push([c*50, data.results[i].id, data.results[i].song, data.results[i].artist, data.results[i].creator, data.results[i].pgu_diff, color]);
+
+                            } else {
+
+                                if (s.toLowerCase().includes(filter.toLowerCase()) || a.toLowerCase().includes(filter.toLowerCase()) || a2.toLowerCase().includes(filter.toLowerCase())) {
+
+                                    list_.push([c*50, data.results[i].id, data.results[i].song, data.results[i].artist, data.results[i].creator, data.results[i].pgu_diff, color]);
+                                            
+                                }
+                                            
+                            }
+                                    
+                            c++;
+
+                            break;
+
+                        }
+
+                    }
+
+                }
+
+                c = 0;
+
+                for (let i = aSel*100; i < (aSel+1)*100; i++) {
+
+                    document.getElementById("lvlSearch").innerHTML = document.getElementById("lvlSearch").innerHTML + 
+                    "<div class=\"main\" style=\"top: " + c*100 + "px;\"><div class=\"id\"><p style:'font-size:50px;'>" + list_[i][1] + "</p></div><div class=\"name\"><p>" + list_[i][2] + "</p></div><div class=\"artist\"><p>" + list_[i][3] + "</p></div><div class=\"charter\"><p>" + list_[i][4] + "</p></div><div class=\"rate\" style=\"background: " + list_[i][6] + "\"><p>" + list_[i][5] + "</p></div></div>";
+
+                    c++;
+
+                }
+
+            });
+
+    }
+
+    $("#searchBar").on('keyup', function(){
+
+        select = 0;
+        loadLvls(gIT("searchBar"));
+
+    });
+
+    function lvlRight() {
+
+        select += 1;
+
+        loadLvls(gIT("searchBar"));
+
+    }
+
+    function lvlLeft() {
+
+        if (select > 0) {
+
+            select -= 1;
+
+        }
+
+        loadLvls(gIT("searchBar"));
+
+    }
+
+    loadLvls(gIT("searchBar"));
+
+    var diffs = [0.2, 0.4, 0.75, 1, 0.75, 0.4];
+    var ytApiKey = "AIzaSyAvW8Fe_CqIUHzYw2aSMKCe247NtSewmJY";
+
+    $('#inLink').on('keyup', function(){
+
+        var yL = gIT("inLink");
+        var vI = yL.split("?v=");
+        var videoId = vI[1];
+
+        if (vI[0] == "https://www.youtube.com/watch") {
+
+            $.get("https://www.googleapis.com/youtube/v3/videos?part=snippet&id=" + videoId + "&key=" + ytApiKey, function(data) {
+
+                $('#title').text("영상 제목 : " + data.items[0].snippet.title);
+                $('#tstamp').text("타임스탬프 : " + data.items[0].snippet.publishedAt);
+                $('#channel').text("채널 / 리더보드 이름 : " + data.items[0].snippet.channelTitle);
+
+            });
+
+        } else {
+
+            $('#title').text("영상 제목 :  N/A");
+            $('#tstamp').text("타임스탬프 : N/A");
+            $('#channel').text("채널 / 리더보드 이름 : N/A");
+
+        }
+
+    });
+
+    $('#inId').on('keyup', function() {
+
+        fetch('https://be.t21c.kro.kr/levels/' + gIT("inId"))
+            .then(res => res.json())
+            .then(data => {
+
+                $('#lvlName').text('곡 : ' + data.song);
+                $('#lvlArtist').text('작곡가 : ' + data.artist);
+                $('#lvlCreator').text('제작자 : ' + data.creator);
+                $('#lvlDiff').text('난도 : ' + data.pgu_diff);
+
+            });
+
+    });
+
+    $('.input').on('keyup', function(){ 
+        try {
+
+            var acc = calcAcc(
+                parseInt(gIT("inTE")),
+                parseInt(gIT("inE")),
+                parseInt(gIT("inEP")),
+                parseInt(gIT("inP")),
+                parseInt(gIT("inLP")),
+                parseInt(gIT("inL"))
+            ).toFixed(2);
+            
+            if (acc >= 100) {
+
+                document.getElementById("accCalc").style.color = "gold";
+                $("#accCalc").html("절대 정확도: " + acc + "%");
+
+            } else {
+
+                document.getElementById("accCalc").style.color = "white";
+                $("#accCalc").html("절대 정확도: " + acc + "%");
+
+            }
+
+        } catch {
+            console.log("No Valid Stuffs");
+        }
+    });
+
+    function Submit() {
+
+        var yL = gIT("inLink");
+        var vI = yL.split("?v=");
+        var videoId = vI[1];
+        var pName = "";
+
+        $.get("https://www.googleapis.com/youtube/v3/videos?part=snippet&id=" + videoId + "&key=" + ytApiKey, function(data) {
+
+            if (gIT("inName").length >= 1) {
+
+                pName = gIT("inName")
+
+            } else {
+
+                pName = data.items[0].snippet.channelTitle;
+
+            }
+
+            var details = {
+                'entry.1501102710': gIT("inId"),
+                'entry.863109178': gIT("inSpeed"),
+                'entry.1017646927': pName,
+                'entry.1622600394': gIT("inFeel"),
+                'entry.662649267': data.items[0].snippet.title,
+                'entry.188528298': 'https://www.youtube.com/watch?v=' + videoId,
+                'entry.1922370523': data.items[0].snippet.publishedAt,
+                'entry.1155066920': gIT("inTE"),
+                'entry.1594163639': gIT("inE"),
+                'entry.1084592024': gIT("inEP"),
+                'entry.169503435': gIT("inP"),
+                'entry.1398756494': gIT("inLP"),
+                'entry.17648355': gIT("inL")
+            };
+
+            var formBody = [];
+            for (var property in details) {
+                var encodedKey = encodeURIComponent(property);
+                var encodedValue = encodeURIComponent(details[property]);
+                formBody.push(encodedKey + "=" + encodedValue);
+            }
+            formBody = formBody.join("&");
+
+            fetch('https://docs.google.com/forms/u/0/d/e/1FAIpQLSczH_8JFCE8W-TUiKFgBNoBke9g1XLW2TlihTm-_hfY03ldSw/formResponse', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'User-Agent': 'insomnia/8.6.1'
+                },
+                body: formBody
+            })
+
+            document.getElementById("submit").remove();
+
+        });
+
+    }
+
+    function gIT(i) {
+
+        return document.getElementById(i).value;
+
+    }
+
+    function calcAcc(te, e, ep, p, lp, l) {
+
+        return 100 * ((diffs[0]*te + diffs[1]*e + diffs[2]*ep + diffs[3]*p + diffs[4]*lp + diffs[5]*l) / (te+e+ep+p+lp+l));
+
+    }
+
+</script>
