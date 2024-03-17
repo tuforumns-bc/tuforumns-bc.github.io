@@ -768,58 +768,117 @@
     function Submit() {
 
         var yL = gIT("inLink");
-        var vI = yL.split("?v=");
-        var videoId = vI[1];
+        var ytSpecial = yL.split("?v=");
+        var lSeperate = yL.split("/");
         var pName = "";
 
-        $.get("https://www.googleapis.com/youtube/v3/videos?part=snippet&id=" + videoId + "&key=" + ytApiKey, function(data) {
+        if (lSeperate[2].includes("youtube.com")) {
 
-            if (gIT("inName").length >= 1) {
+            $.get("https://www.googleapis.com/youtube/v3/videos?part=snippet&id=" + ytSpecial[1] + "&key=" + ytApiKey, function(data) {
 
-                pName = gIT("inName")
+                console.log(data);
 
-            } else {
+                if (gIT("inName").length >= 1) {
 
-                pName = data.items[0].snippet.channelTitle;
+                    pName = gIT("inName")
 
-            }
+                } else {
 
-            var details = {
-                'entry.1501102710': gIT("inId"),
-                'entry.863109178': gIT("inSpeed"),
-                'entry.1017646927': pName,
-                'entry.1622600394': gIT("inFeel"),
-                'entry.662649267': data.items[0].snippet.title,
-                'entry.188528298': 'https://www.youtube.com/watch?v=' + videoId,
-                'entry.1922370523': data.items[0].snippet.publishedAt,
-                'entry.1155066920': gIT("inTE"),
-                'entry.1594163639': gIT("inE"),
-                'entry.1084592024': gIT("inEP"),
-                'entry.169503435': gIT("inP"),
-                'entry.1398756494': gIT("inLP"),
-                'entry.17648355': gIT("inL")
-            };
+                    pName = data.items[0].snippet.channelTitle;
 
-            var formBody = [];
-            for (var property in details) {
-                var encodedKey = encodeURIComponent(property);
-                var encodedValue = encodeURIComponent(details[property]);
-                formBody.push(encodedKey + "=" + encodedValue);
-            }
-            formBody = formBody.join("&");
+                }
 
-            fetch('https://docs.google.com/forms/u/0/d/e/1FAIpQLSczH_8JFCE8W-TUiKFgBNoBke9g1XLW2TlihTm-_hfY03ldSw/formResponse', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'User-Agent': 'insomnia/8.6.1'
-                },
-                body: formBody
-            })
+                var details = {
+                    'entry.1501102710': gIT("inId"),
+                    'entry.863109178': gIT("inSpeed"),
+                    'entry.1017646927': pName,
+                    'entry.1622600394': gIT("inFeel"),
+                    'entry.662649267': data.items[0].snippet.title,
+                    'entry.188528298': 'https://www.youtube.com/watch?v=' + ytSpecial[1],
+                    'entry.1922370523': data.items[0].snippet.publishedAt,
+                    'entry.1155066920': gIT("inTE"),
+                    'entry.1594163639': gIT("inE"),
+                    'entry.1084592024': gIT("inEP"),
+                    'entry.169503435': gIT("inP"),
+                    'entry.1398756494': gIT("inLP"),
+                    'entry.17648355': gIT("inL")
+                };
 
-            document.getElementById("submit").remove();
+                var formBody = [];
+                for (var property in details) {
+                    var encodedKey = encodeURIComponent(property);
+                    var encodedValue = encodeURIComponent(details[property]);
+                    formBody.push(encodedKey + "=" + encodedValue);
+                }
+                formBody = formBody.join("&");
 
-        });
+                fetch('https://docs.google.com/forms/u/0/d/e/1FAIpQLSczH_8JFCE8W-TUiKFgBNoBke9g1XLW2TlihTm-_hfY03ldSw/formResponse', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'User-Agent': 'insomnia/8.6.1'
+                    },
+                    body: formBody
+                })
+
+                document.getElementById("submit").remove();
+
+            });
+
+        } else if (lSeperate[2].includes("youtu.be")) {
+            
+            $.get("https://www.googleapis.com/youtube/v3/videos?part=snippet&id=" + lSeperate[3] + "&key=" + ytApiKey, function(data) {
+
+                console.log(data);
+
+                if (gIT("inName").length >= 1) {
+
+                    pName = gIT("inName")
+
+                } else {
+
+                    pName = data.items[0].snippet.channelTitle;
+
+                }
+
+                var details = {
+                    'entry.1501102710': gIT("inId"),
+                    'entry.863109178': gIT("inSpeed"),
+                    'entry.1017646927': pName,
+                    'entry.1622600394': gIT("inFeel"),
+                    'entry.662649267': data.items[0].snippet.title,
+                    'entry.188528298': 'https://www.youtube.com/watch?v=' + lSeperate[3],
+                    'entry.1922370523': data.items[0].snippet.publishedAt,
+                    'entry.1155066920': gIT("inTE"),
+                    'entry.1594163639': gIT("inE"),
+                    'entry.1084592024': gIT("inEP"),
+                    'entry.169503435': gIT("inP"),
+                    'entry.1398756494': gIT("inLP"),
+                    'entry.17648355': gIT("inL")
+                };
+
+                var formBody = [];
+                for (var property in details) {
+                    var encodedKey = encodeURIComponent(property);
+                    var encodedValue = encodeURIComponent(details[property]);
+                    formBody.push(encodedKey + "=" + encodedValue);
+                }
+                formBody = formBody.join("&");
+
+                fetch('https://docs.google.com/forms/u/0/d/e/1FAIpQLSczH_8JFCE8W-TUiKFgBNoBke9g1XLW2TlihTm-_hfY03ldSw/formResponse', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'User-Agent': 'insomnia/8.6.1'
+                    },
+                    body: formBody
+                })
+
+                document.getElementById("submit").remove();
+
+            });
+            
+        }
 
     }
 
@@ -832,6 +891,12 @@
     function calcAcc(te, e, ep, p, lp, l) {
 
         return 100 * ((diffs[0]*te + diffs[1]*e + diffs[2]*ep + diffs[3]*p + diffs[4]*lp + diffs[5]*l) / (te+e+ep+p+lp+l));
+
+    }
+
+    function english() {
+
+        
 
     }
 
