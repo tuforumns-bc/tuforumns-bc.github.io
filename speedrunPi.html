@@ -1,0 +1,96 @@
+<html>
+
+    <head>
+        <title>pi game</title>
+    </head>
+
+    <body>
+
+        <p id="timer">0.000s</p>
+        <p id="pi">3.</p>
+
+    </body>
+
+</html>
+
+<style>
+
+    p {
+
+        font-size: 100px;
+        position: absolute;
+        left: 50%;
+        top: 30%;
+        transform: translate(-50%, 0);
+        font-family: 'Courier New';
+        font-weight: bold;
+        color: rgb(40, 206, 7);
+        transition: ease-out 0.2s;
+
+    }
+
+    #timer {
+
+        top: 15%;
+        font-size: 75px;
+        color: rgb(100, 100, 100);
+        transition: ease-out 0.33s;
+        
+    }
+
+    body {
+
+        background: rgb(50, 50, 50);
+
+    }
+
+</style>
+
+<script>
+
+    let pi_ = "1,4,1,5,9,2,6,5,3,5,8,9,7,9,3,2,3,8,4,6,2,6,4,3,3,8,3,2,7,9,5,0,2,8,8,4,1,9,7,1,6,9,3,9,9,3,7,5,1,0,5,8,2,0,9,7,4,9,4,4,5,9,2,3,0,7,8,1,6,4,0,6,2,8,6,2,0,8,9,9,8,6,2,8,0,3,4,8,2,5,3,4,2,1,1,7,0,6,7";
+    let pi = pi_.split(",");
+    let index = 0;
+    let startTime = 0;
+
+    document.addEventListener("keypress", (e) => {
+
+        if (e.key == pi[index]) {
+
+            if (index == 1) {
+
+                console.log("Start");
+                startTime = Date.now();
+                document.getElementById("timer").style.fontSize = "75px";
+                document.getElementById("timer").style.color = "rgb(100, 100, 100)";
+
+            }
+
+            document.getElementById("pi").innerText += pi[index];
+            document.getElementById("timer").innerText = ((Date.now() - startTime) / 1000) + "s";
+            document.getElementById("pi").style.left = "calc(50% - " + 30*index + "px)";
+            document.getElementById("pi").style.color = "rgb(40, 206, 7)";
+
+            index ++;
+
+            if (index == 99) {
+
+                console.log((Date.now() - startTime) / 1000);
+                document.getElementById("timer").style.fontSize = "100px";
+                document.getElementById("timer").style.color = "rgb(40, 206, 7)";
+
+            }
+
+        } else {
+
+            document.getElementById("pi").innerText = "3.";
+            document.getElementById("pi").style.left = "50%";
+            document.getElementById("pi").style.color = "rgb(245, 38, 72)";
+
+            index = 0;
+                
+        }
+
+    });
+
+</script>
