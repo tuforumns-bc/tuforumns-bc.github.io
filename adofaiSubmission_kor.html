@@ -605,7 +605,7 @@
                             let s = data.results[i].song;
                             let a = data.results[i].creator;
                             let a2 = data.results[i].artist;
-                            let diff = data.results[i].pgu_diff;
+                            let diff = data.results[i].pguDiff;
 
                             if (altData1[j] != "") {
 
@@ -730,7 +730,7 @@
                 $('#lvlName').text('곡 : ' + data.song);
                 $('#lvlArtist').text('작곡가 : ' + data.artist);
                 $('#lvlCreator').text('제작자 : ' + data.creator);
-                $('#lvlDiff').text('난도 :' + data.pgu_diff);
+                $('#lvlDiff').text('난도 :' + data.pguDiff);
 
             });
 
