@@ -1,0 +1,188 @@
+<html>
+    <head><title>discord stuffs</title></head>
+    <body>
+
+        <a href="https://discord.com/login">Go to discord</a><br>
+        <input id="authIn" placeholder="Your Token">
+
+        <div id="lookupDiv">
+
+            <input id="lookupDiv-userId" placeholder="User Id">
+            <button onclick="lookupUser()">Submit and Search</button>
+            <p id="lookupDiv-resName"></p>
+            <p id="lookupDiv-pubName"></p>
+            <img id="lookupDiv-avatar"><br>
+            <img id="lookupDiv-banner">
+
+        </div>
+
+        <div id="getMsgs">
+
+            <input id="getMsgs-channelId" placeholder="Channel Id">
+            <p>How many messages (1 to 100)</p>
+            <input type="range" id="getMsgs-limit" min="1" max="100" val="50">
+            <button onclick="getMsgs()">Get Messages</button>
+
+            <div id="getMsgs-res" style="overflow-y: scroll;overflow-x:scroll;width:675;height:200;padding:5px;margin:5px;">
+                <p id="getMsgs-resContent">
+                </p>
+            </div>
+
+        </div>
+
+        <div id="smallThings" style="display:flex;height:150px;">
+
+            <div id="delMsgs" style="width:200px;height:75px;">
+
+                <input id="delMsgs-channelId" placeholder="Channel Id"><br>
+                <input id="delMsgs-msgId" placeholder="Message Id"><br>
+                <button onclick="delMsgs()">Delete Message</button>
+    
+            </div>
+    
+            <div id="editMsgs" style="width:200px;height:75px;">
+    
+                <input id="editMsgs-channelId" placeholder="Channel Id"><br>
+                <input id="editMsgs-msgId" placeholder="Message Id"><br>
+                <input id="editMsgs-content" placeholder="New Message"><br>
+                <button onclick="editMsgs()">Edit Message</button>
+    
+            </div>
+    
+            <div id="sendMsgs" style="width:200px;height:75px;">
+    
+                <input id="sendMsgs-channelId" placeholder="Channel Id"><br>
+                <input id="sendMsgs-content" placeholder="Message"><br>
+                <button onclick="sendMsgs()">Send Message</button>
+    
+            </div>
+
+        </div>
+
+    </body>
+</html>
+
+<style>
+
+    div {
+
+        width: 700px;
+        height: 300px;
+        padding: 20px;
+        margin: 20px;
+        border: 1px solid black;
+
+    }
+
+</style>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script>
+
+    function lookupUser() {
+
+        let token = $("#authIn").val();
+        let userId = $("#lookupDiv-userId").val();
+
+        fetch('https://discord.com/api/v9/users/' + userId, {
+            method: 'GET',
+            headers: {
+                "Authorization": token,
+                "User-Agent": "insomnia/8.6.1",
+            }
+        }).then(res => res.json()).then(data => {
+
+            $("#lookupDiv-resName").text("Username: " + data.username);
+            $("#lookupDiv-pubName").text("Display Name: " + data.global_name);
+            $("#lookupDiv-avatar").attr("src","https://cdn.discordapp.com/avatars/" + userId + "/" + data.avatar + ".webp?size=100");
+            $("#lookupDiv-banner").attr("src","https://cdn.discordapp.com/banners/" + userId + "/" + data.banner + ".gif?size=100");
+
+        });
+    
+    }
+
+    function getMsgs() {
+
+        let token = $("#authIn").val();
+        let channelId = $("#getMsgs-channelId").val();
+        let amount = $("#getMsgs-limit").val();
+
+        fetch("https://discord.com/api/v9/channels/" + channelId + "/messages?limit=" + amount, {
+            method: 'GET',
+            headers: {
+                "Authorization": token,
+                "User-Agent": "insomnia/8.6.1",
+            }
+        }).then(res => res.json()).then(data => {
+
+            $("#getMsgs-resContent").html("");
+
+            for (let i = data.length-1; i > -1; i--) {
+
+                $("#getMsgs-resContent").append(data[i].author.global_name + ": " + data[i].content + "<br>(msgId:" + data[i].id + ")<br><br>");
+
+            }
+
+        });
+
+    }
+
+    function delMsgs() {
+
+        let token = $("#authIn").val();
+        let channelId = $("#delMsgs-channelId").val();
+        let msgId = $("#delMsgs-msgId").val();
+
+        fetch("https://discord.com/api/v9/channels/" + channelId + "/messages/" + msgId, {
+            method: 'DELETE',
+            headers: {
+                "Authorization": token,
+                "User-Agent": "insomnia/8.6.1",
+            }
+        })
+
+    }
+
+    function editMsgs() {
+    
+        let token = $("#authIn").val();
+        let channelId = $("#editMsgs-channelId").val();
+        let msgId = $("#editMsgs-msgId").val();
+        let msg = $("#editMsgs-content").val();
+
+        fetch("https://discord.com/api/v9/channels/" + channelId + "/messages/" + msgId, {
+            method: 'PATCH',
+            headers: {
+                "Authorization": token,
+                "Content-Type": "application/json",
+                "User-Agent": "insomnia/8.6.1"
+            },
+            body: JSON.stringify({
+                "content": msg
+            })
+        });
+    
+    }
+
+    function sendMsgs() {
+    
+        let token = $("#authIn").val();
+        let channelId = $("#sendMsgs-channelId").val();
+        let msg = $("#sendMsgs-content").val();
+
+        fetch('https://discord.com/api/v9/channels/' + channelId + '/messages', {
+            method: 'POST',
+            headers: {
+                "Authorization": token,
+                "Content-Type": "application/json",
+                "User-Agent": "insomnia/8.6.1"
+            },
+            body: JSON.stringify({
+                "content": msg
+            })
+        });
+
+    }
+
+</script>
