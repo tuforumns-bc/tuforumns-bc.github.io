@@ -585,7 +585,7 @@
 
         document.getElementById("lvlSearch").innerHTML = "<p style=\"font-size: 100px;\">LOADING...</p>";
 
-        fetch('https://be.t21c.kro.kr/levels')
+        fetch('https://be.tuforums.com/levels')
             .then(res => res.json())
             .then(data => {
 
@@ -725,7 +725,7 @@
 
     $('#inId').on('keyup', function() {
 
-        fetch('https://be.t21c.kro.kr/levels/' + gIT("inId"))
+        fetch('https://be.tuforums.com/levels/' + gIT("inId"))
             .then(res => res.json())
             .then(data => {
 
