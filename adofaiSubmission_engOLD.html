@@ -1,0 +1,971 @@
+<html>
+
+    <head><title>ADOFAI Submission Page</title></head>
+    
+    <body>
+        <h1 style="color: white;">WARNING : If everything does not line up, play around by zooming<br> in and out of the web page with ctrl + and ctrl - (it will work!)<br>Make sure to fullscreen your window!</h1>
+        <div id="container">
+            <br><br><br><br>
+            <div id="ytContainer">
+                <input placeholder="YT Link" class="input" id="inLink">
+                <input placeholder="Alt. Leaderboard Name " class="input" id="inName">
+                <p id="title"></p>
+                <p id="tstamp"></p>
+                <p id="channel"></p>
+            </div>
+
+            <div id="idContainer">
+                <input placeholder="Level ID" class="input" id="inId">
+                <p id="lvlName"></p>
+                <p id="lvlArtist"></p>
+                <p id="lvlCreator"></p>
+                <p id="lvlDiff"></p>
+            </div>
+            <input placeholder="Speed (ex. 1.2)" class="input" id="inSpeed">
+            <input placeholder="Feeling rating" class="input" id="inFeel">
+            <p id="acc" style="font-size:50px;">--- ACCURACY ---</p>
+            <h1 id="searchTitle">Level Searcher</h1>
+            <div id="accDiv">
+
+                <!--<img src="demo.png" width="500px" style="opacity:33%;top:50px;position:absolute;">!-->
+                <p id="TE_">Too Early:</p>
+                <p id="E_">Early:</p>
+                <p id="EP_">EPerfect:</p>
+                <p id="P_">Perfect:</p>
+                <p id="LP_">LPerfect:</p>
+                <p id="L_">Late:</p>
+                <p id="accCalc">X-Accuracy: </p>
+                <input class="input" id="inTE">
+                <input class="input" id="inE">
+                <input class="input" id="inEP">
+                <input class="input" id="inP">
+                <input class="input" id="inLP">
+                <input class="input" id="inL">
+
+            </div>
+            
+            <p id="modeTitle" style="font-size:50px;">
+                --- JUDGEMENT ---
+            </p>
+            <p id="modeDesc" style="font-size:30px;">
+                Click Judgement!
+            </p>
+            <div id="mode">
+                <img src="adofaiSubmissionAssets/normal.webp" id="modeButton">
+            </div>
+            <button onclick="Submit()" class="input" id="submit" style="font-size:40px;">Submit!</button>
+        </div>
+        <input id="searchBar" placeholder="Level Name">
+        <div id="lvlSearch" style="overflow-y:scroll;overflow-x:hidden">
+
+        </div>
+
+        <button onclick="lvlRight()" id="lvlRight">></button>
+        <button onclick="lvlLeft()" id="lvlLeft"><</button>
+
+        <div id="endDetails">
+
+            <p id="credits">
+                Program made by BypassedChicken / Fettucchini<br>
+                API made by SJK<br>
+                Original Design from Sharky<br>
+                Layout Designs & Improvements from Teo
+            </p>
+
+        </div>
+
+    </body>
+
+</html>
+
+<style>
+
+    #searchTitle {
+
+        position: absolute;
+        font-size: 60px;
+        color: white;
+        font-family: 'Courier New';
+        top: 110%;
+        left: 50%;
+        transform: translate(-50%, 0);
+
+    }
+
+    #endDetails {
+        position: absolute;
+        top: 170%;
+        left: 0%;
+        width: 100%;
+        height: 20%;
+        background: rgba(200, 200, 200, 0.5);
+    }
+
+    #credits {
+        font-size: 40px;
+        font-family: 'courier new';
+        position: absolute;
+        top: 0%;
+        left: 50%;
+        width: 100%;
+        transform: translate(-50%, 0);
+    }
+
+    @font-face {
+        font-family: 'adofai';
+        src: url('adofaiSubmissionAssets/adofai.ttf') format('truetype'), /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    }
+
+
+
+    body { 
+        
+        background-image: URL("adofaiSubmissionAssets/adofaiSubmission_bg.png");
+        background-size: 200%;
+    
+    }
+
+    input, button, body { font-family: 'adofai'; font-size: 20px; text-overflow:ellipsis; }
+
+    .input {
+
+        position: absolute;
+        width: 100px;
+        height: 28px;
+        border-radius: 500px;
+        background: rgba(100, 100, 100, 0.3);
+        color: white;  
+        left: 33%;
+        scale: 100%;
+        rotate: 0deg;
+        transition: ease-out 0.15s;
+        border: 1px solid rgba(50, 50, 50, 1);
+
+    }
+
+    .input:hover {
+
+        scale: 110%;
+        rotate: 1deg;
+
+    }
+
+
+
+    #inId {
+        top: 5%;
+        left: 50%;
+        width: 25%;
+        height: 20%;
+        transform: translate(-50%, 0);
+        text-align: center;
+    }
+
+    #inSpeed {
+        top: 45%;
+        left: 50%;
+        width: 10%;
+        height: 7.5%;
+        transform: translate(-125%, -50%);
+        text-align: center;
+    }
+
+    #inFeel {
+        top: 45%;
+        left: 50%;
+        width: 10%;
+        height: 7.5%;
+        transform: translate(25%, -50%);
+        text-align: center;
+    }
+
+    #inLink {
+        top: 5%;
+        left: 50%;
+        width: 25%;
+        height: 20%;
+        transform: translate(-50%, 0);
+        text-align: center;
+    }
+
+    #inName {
+        top: 95%;
+        left: 50%;
+        width: 50%;
+        height: 20%;
+        transform: translate(-50%, -100%);
+        text-align: center;
+    }
+
+    #inTE {
+        text-align: center;
+        top: 54%;
+        left: 33%;
+        width: 10%;
+        height: 18%;
+        color: rgb(255, 0, 0);
+    }
+
+    #inE {
+        text-align: center;
+        top: 54%;
+        left: 57%;
+        width: 10%;
+        height: 18%;
+        color: rgb(201, 135, 63);
+    }
+
+    #inEP {
+        text-align: center;
+        top: 34%;
+        left: 20%;
+        width: 10%;
+        height: 18%;
+        color: rgb(239, 224, 53);
+    }
+
+    #inP {
+        text-align: center;
+        top: 34%;
+        left: 47%;
+        width: 23%;
+        height: 18%;
+        color: rgb(94, 242, 53);
+    }
+
+    #inLP {
+        text-align: center;
+        top: 34%;
+        left: 89.5%;
+        width: 10%;
+        height: 18%;
+        color: rgb(239, 224, 53);
+    }
+
+    #inL {
+        text-align: center;
+        top: 54%;
+        left: 80%;
+        width: 10%;
+        height: 18%;
+        color: rgb(201, 135, 63);
+    }
+
+    #submit {
+        top: 90%;
+        left: 50%;
+        transform: translate(-50%, 0);
+        width: 20%;
+        height: 8%;
+        text-align: center;
+    }
+
+
+
+    p {
+
+        color: white;
+        font-size: 30px;
+        font-family: 'adofai';
+
+    }
+
+    #container > p {
+        position: absolute;
+        font-size: 20px;
+    }
+
+    #accDiv > p {
+        position: absolute;
+    }
+
+    body > p {
+        position: absolute;
+    }
+
+
+
+    #title {
+        position: absolute;
+        top: 10%;
+        left: 5%;
+        width: 90%;
+        height: 15%;
+    }
+
+    #tstamp {
+        position: absolute;
+        top: 37%;
+        left: 5%;
+        width: 90%;
+        height: 15%;
+    }
+
+    #channel {
+        position: absolute;
+        top: 50%;
+        left: 5%;
+        width: 90%;
+        height: 15%;
+    }
+
+    #lvlName {
+        position: absolute;
+        top: 10%;
+        left: 5%;
+        width: 40%;
+        height: 25%;
+        font-size: 20px;
+    }
+
+    #lvlArtist {
+        position: absolute;
+        top: 10%;
+        left: 55%;
+        width: 40%;
+        height: 25%;
+        font-size: 20px;
+    }
+
+    #lvlCreator {
+        position: absolute;
+        top: 50%;
+        left: 5%;
+        width: 40%;
+        height: 25%;
+        font-size: 20px;
+    }
+
+    #lvlDiff {
+        position: absolute;
+        top: 50%;
+        left: 55%;
+        width: 40%;
+        height: 25%;
+        font-size: 20px;
+    }
+
+    #acc {
+        top: 45%;
+        font-size: 50px;
+        left: 33%;
+        transform: translate(-50%, -50%);
+    }
+
+    #modeTitle {
+        top: 45%;
+        font-size: 50px;
+        left: 72%;
+        transform: translate(-50%, -50%);
+    }
+
+    #modeDesc {
+        top: 58%;
+        font-size: 50px;
+        left: 72%;
+        transform: translate(-50%, -50%);
+    }
+
+    #TE_ {
+        font-size: 25px;
+        top: 38.5%;
+        left: 16%;
+        scale: 125%;
+    }
+
+    #E_ {
+        font-size: 25px;
+        top: 38.5%;
+        left: 46%;
+        scale: 125%;
+    }
+
+    #EP_ {
+        font-size: 25px;
+        top: 19%;
+        left: 5%;
+        scale: 125%;
+    }
+
+    #P_ {
+        font-size: 25px;
+        top: 19%;
+        left: 34%;
+        scale: 125%;
+    }
+
+    #LP_ {
+        font-size: 25px;
+        top: 19%;
+        left: 74%;
+        scale: 125%;
+    }
+
+    #L_ {
+        font-size: 25px;
+        top: 38.5%;
+        left: 71%;
+        scale: 125%;
+    }
+
+    #accCalc {
+        font-size: 25px;
+        top: 60%;
+        left: 12%;
+        scale: 125%;
+        transform: translate(0, 0);
+    }
+
+
+
+    #container {
+
+        width: 60%;
+        height: 60%;
+        border-radius: 20px;
+        background: rgba(100, 100, 100, 0.3);
+        border: 1px solid rgb(0, 0, 0);
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+    }
+
+    #accDiv {
+
+        width: 45%;
+        height: 25%;
+        border-radius: 20px;
+        left: 33%;
+        position: absolute;
+        transform: translate(-50%, -100%);
+        top: 85%;
+        scale: 100%;
+        background: rgba(100, 100, 100, 0.3);
+
+    }
+
+    #mode {
+
+        width: 17.5%;
+        height: 25%;
+        border-radius: 20px;
+        left: 72%;
+        position: absolute;
+        transform: translate(-50%, -100%);
+        top: 85%;
+        scale: 100%;
+        background: rgba(100, 100, 100, 0.3);
+
+    }
+
+    #modeButton {
+
+        position: absolute;
+        width: 60%;
+        height: 66%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+    }
+
+    #lvlSearch {
+
+        width: 60%;
+        height: 60%;
+        border-radius: 20px;
+        background: rgba(100, 100, 100, 0.3);
+        position: absolute;
+        top: 120%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+    }
+
+
+
+
+
+    .main {
+        position: absolute;
+        left: 0%;
+        width: 100%;
+        height: 15.5%;
+        text-align: center;
+        background: rgba(100, 100, 100, 0.2);
+    }
+
+    .id {
+        position: absolute;
+        top: 0%;
+        left: 0%;
+        width: 12.5%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0);
+    }
+
+    .name {
+        position: absolute;
+        top: 0%;
+        left: 12.5%;
+        width: 25%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0);
+    }
+    
+    .artist {
+        position: absolute;
+        top: 0%;
+        left: 37.5%;
+        width: 18.75%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0);
+    }
+
+    .charter {
+        position: absolute;
+        top: 0%;
+        left: 56.25%;
+        width: 25%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0);
+    }
+
+    .rate {
+        position: absolute;
+        top: 0%;
+        left: 87.5%;
+        width: 9.5%;
+        height: 100%;
+        font-size: 40px;
+        border-radius: 50%;
+    }
+
+    #lvlRight {
+        position: absolute;
+        width: 5%;
+        height: 5%;
+        top: 155%;
+        left: 50%;
+        transform: translate(110%, 0);
+        border-radius: 10px;
+        border: none;
+        background: rgb(40, 40, 40);
+        color: white;
+        font-size: 50px;
+    }
+
+    #lvlLeft {
+        position: absolute;
+        width: 5%;
+        height: 5%;
+        top: 155%;
+        left: 50%;
+        transform: translate(0, 0);
+        border-radius: 10px;
+        border: none;
+        background: rgb(40, 40, 40);
+        color: white;
+        font-size: 50px;
+    }
+
+    #searchBar {
+        position: absolute;
+        width: 15%;
+        height: 5%;
+        border: none;
+        border-radius: 10px;
+        top: 155%;
+        left: 50%;
+        transform: translate(-110%, 0);
+        background: rgb(55, 55, 55);
+        font-size: 30px;
+    }
+
+    #ytContainer {
+
+        position: absolute;
+        top: 10%;
+        left: 70%;
+        width: 36%;
+        height: 25%;
+        border-radius: 15px;
+        transform: translate(-50%, 0);
+        background: rgba(100, 100, 100, 0.3);
+
+    }
+
+    #ytContainer > p {
+        font-size: 20px;
+    }
+
+    #idContainer {
+
+        position: absolute;
+        top: 10%;
+        left: 30%;
+        width: 36%;
+        height: 25%;
+        border-radius: 15px;
+        transform: translate(-50%, 0);
+        background: rgba(100, 100, 100, 0.3);
+
+    }
+
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<script>
+    
+    let modeC = 0;
+
+    document.getElementById("modeButton").addEventListener("click", (e) => {
+
+        modeC++;
+
+        if (modeC % 2 == 1) { $("#modeButton").attr("src", "adofaiSubmissionAssets/strict.webp"); }
+        if (modeC % 2 == 0) { $("#modeButton").attr("src", "adofaiSubmissionAssets/normal.webp"); }
+
+    })
+
+    let select = 0;
+    
+    let data1 = [["P1","#0099ff"],["P2","#00a2ff"],["P3","#00aaff"],["P4","#00b2ff"],["P5","#00bbff"],["P6","#00c3ff"],["P7","#00ccff"],["P8","#00ddff"],["P9","#00e5ff"],["P10","#00eeff"],["P11","#00ffff"],["P12","#00ffe8"],["P13","#00ffd0"],["P14","#00ffb8"],["P15","#00ffaa"],["P16","#00ff88"],["P17","#00ff70"],["P18","#00ff48"],["P19","#00ff30"],["P20","#44ff15"],["G1","#F2A700"],["G2","#F09E08"],["G3","#EE9510"],["G4","#ED8C18"],["G5","#EB8420"],["G6","#EA7B28"],["G7","#E87230"],["G8","#E66938"],["G9","#E56040"],["G10","#E35848"],["G11","#E14F4F"],["G12","#E04657"],["G13","#DE3D5F"],["G14","#DC3467"],["G15","#DB2C6F"],["G16","#D92377"],["G17","#D71A7F"],["G18","#D61187"],["G19","#D4088F"],["G20","#D20097"],["U1","#7B4FB2"],["U2","#744AA8"],["U3","#6E469F"],["U4","#674295"],["U5","#613E8C"],["U6","#5A3A83"],["U7","#543679"],["U8","#4D3170"],["U9","#472D67"],["U10","#40295D"],["U11","#3A2554"],["U12","#33214A"],["U13","#2D1D41"],["U14","#261838"],["U15","#20142E"],["U16","#191025"],["U17","#130C1C"],["U18","#0C0812"],["U19","#060409"],["U20","#000000"],["-21","#ceadff"],["21.7","#000000"],["21.65","#241f1f"],["21.6","#2f2b36"],["21.55","#443a57"],["727","#000000"],["0.9","#5f3001"],["-2","#434343"],["MP","#ffffff"]];
+    let altData1 = [
+        "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", 
+        "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", 
+        "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", 
+        "", "<p style='color:red;'>?</p>", "?", "?", "?", "Grande", "Epic", "", ""
+    ]
+
+    function loadLvls(filter) {
+
+        document.getElementById("lvlSearch").innerHTML = "<p style=\"font-size: 100px;\">LOADING...</p>";
+
+        fetch('https://be.tuforums.com/levels')
+            .then(res => res.json())
+            .then(data => {
+
+                let color = "#111";
+                let aSel = select % (Math.floor(data.results.length / 100));
+                let list_ = [];
+
+                document.getElementById("lvlSearch").innerHTML = "";
+
+                let c = 0;
+
+                for (let i = 0; i < data.results.length; i++) {
+
+                    for (let j = 0; j < data1.length; j++) {
+
+                        if (data.results[i].pguDiff == data1[j][0]) {
+
+                            color = data1[j][1];
+                            let s = data.results[i].song;
+                            let a = data.results[i].creator;
+                            let a2 = data.results[i].artist;
+                            let diff = data.results[i].pguDiff;
+
+                            if (altData1[j] != "") {
+
+                                diff = altData1[j];
+
+                            }
+
+                            if (filter == "") {
+
+                                list_.push([c*17, data.results[i].id, data.results[i].song, data.results[i].artist, data.results[i].creator, diff, color]);
+
+                            } else {
+
+                                if (s.toLowerCase().includes(filter.toLowerCase()) || a.toLowerCase().includes(filter.toLowerCase()) || a2.toLowerCase().includes(filter.toLowerCase())) {
+
+                                    list_.push([c*17, data.results[i].id, data.results[i].song, data.results[i].artist, data.results[i].creator, diff, color]);
+                                            
+                                }
+                                            
+                            }
+                                    
+                            c++;
+
+                            break;
+
+                        }
+
+                    }
+
+                }
+
+                c = 0;
+
+                for (let i = aSel*100; i < (aSel+1)*100; i++) {
+
+                    document.getElementById("lvlSearch").innerHTML = document.getElementById("lvlSearch").innerHTML + 
+                    "<div class=\"main\" style=\"top: " + c*17 + "%;\"><div class=\"id\"><p style:'font-size:50px;'>ID : " + list_[i][1] + "</p></div><div class=\"name\"><p>" + list_[i][2] + "</p></div><div class=\"artist\"><p>" + list_[i][3] + "</p></div><div class=\"charter\"><p>" + list_[i][4] + "</p></div><div class=\"rate\" style=\"background: " + list_[i][6] + "\"><p>" + list_[i][5] + "</p></div></div>";
+
+                    c++;
+
+                }
+
+            });
+
+    }
+
+    $("#searchBar").on('keyup', function(){
+
+        select = 0;
+        loadLvls(gIT("searchBar"));
+
+    });
+
+    function lvlRight() {
+
+        select += 1;
+
+        loadLvls(gIT("searchBar"));
+
+    }
+
+    function lvlLeft() {
+
+        if (select > 0) {
+
+            select -= 1;
+
+        }
+
+        loadLvls(gIT("searchBar"));
+
+    }
+
+    loadLvls(gIT("searchBar"));
+
+    var diffs = [0.2, 0.4, 0.75, 1, 0.75, 0.4];
+    var ytApiKey = "AIzaSyAvW8Fe_CqIUHzYw2aSMKCe247NtSewmJY";
+
+    $('#inLink').on('keyup', function(){
+
+        var yL = gIT("inLink");
+        var ytSpecial = yL.split("?v=");
+        var lSeperate = yL.split("/");
+
+
+        if (lSeperate[2].includes("youtube.com")) {
+
+            $.get("https://www.googleapis.com/youtube/v3/videos?part=snippet&id=" + ytSpecial[1] + "&key=" + ytApiKey, function(data) {
+
+                $('#title').text("YT Title : " + data.items[0].snippet.title);
+                $('#tstamp').text("TimeStamp : " + data.items[0].snippet.publishedAt);
+                $('#channel').text("Channel / Leaderboard Name : " + data.items[0].snippet.channelTitle);
+
+            });
+
+        } else if (lSeperate[2].includes("youtu.be")) {
+            
+            $.get("https://www.googleapis.com/youtube/v3/videos?part=snippet&id=" + lSeperate[3] + "&key=" + ytApiKey, function(data) {
+
+                $('#title').text("YT Title : " + data.items[0].snippet.title);
+                $('#tstamp').text("TimeStamp : " + data.items[0].snippet.publishedAt);
+                $('#channel').text("Channel / Leaderboard Name : " + data.items[0].snippet.channelTitle);
+
+            });
+            
+        } else {
+
+            $('#title').text("YT Title : N/A");
+            $('#tstamp').text("TimeStamp : N/A");
+            $('#channel').text("Channel / Leaderboard Name : N/A");
+
+        }
+
+    });
+
+    $('#inId').on('keyup', function() {
+
+        fetch('https://be.tuforums.com/levels/' + gIT("inId"))
+            .then(res => res.json())
+            .then(data => {
+
+                $('#lvlName').text('Song : ' + data.song);
+                $('#lvlArtist').text('Artist : ' + data.artist);
+                $('#lvlCreator').text('Charter : ' + data.creator);
+                $('#lvlDiff').text('Difficulty : ' + data.pguDiff);
+
+            });
+
+    });
+
+    $('.input').on('keyup', function(){ 
+        try {
+
+            var acc = calcAcc(
+                parseInt(gIT("inTE")),
+                parseInt(gIT("inE")),
+                parseInt(gIT("inEP")),
+                parseInt(gIT("inP")),
+                parseInt(gIT("inLP")),
+                parseInt(gIT("inL"))
+            ).toFixed(2);
+            
+            if (acc >= 100) {
+
+                document.getElementById("accCalc").style.color = "gold";
+                $("#accCalc").html("X-Accuracy: " + acc + "%</p>");
+
+            } else {
+
+                document.getElementById("accCalc").style.color = "white";
+                $("#accCalc").html("X-Accuracy: " + acc + "%");
+
+            }
+
+        } catch {
+            console.log("No Valid Stuffs");
+        }
+    });
+
+    function Submit() {
+
+        var yL = gIT("inLink");
+        var ytSpecial = yL.split("?v=");
+        var lSeperate = yL.split("/");
+        var pName = "";
+        var strict = "";
+
+        if (modeC % 2 == 1) { strict = "yes"; }
+        if (modeC % 2 == 0) { strict = "no"; }
+
+        if (lSeperate[2].includes("youtube.com")) {
+
+            $.get("https://www.googleapis.com/youtube/v3/videos?part=snippet&id=" + ytSpecial[1] + "&key=" + ytApiKey, function(data) {
+
+                console.log(data);
+
+                if (gIT("inName").length >= 1) {
+
+                    pName = gIT("inName")
+
+                } else {
+
+                    pName = data.items[0].snippet.channelTitle;
+
+                }
+
+                var details = {
+                    'entry.1501102710': gIT("inId"),
+                    'entry.863109178': gIT("inSpeed"),
+                    'entry.1017646927': pName,
+                    'entry.1622600394': gIT("inFeel"),
+                    'entry.662649267': data.items[0].snippet.title,
+                    'entry.188528298': 'https://www.youtube.com/watch?v=' + ytSpecial[1],
+                    'entry.1922370523': data.items[0].snippet.publishedAt,
+                    'entry.1155066920': gIT("inTE"),
+                    'entry.1594163639': gIT("inE"),
+                    'entry.1084592024': gIT("inEP"),
+                    'entry.169503435': gIT("inP"),
+                    'entry.1398756494': gIT("inLP"),
+                    'entry.17648355': gIT("inL"),
+                    'entry.1591042310': strict
+                };
+
+                var formBody = [];
+                for (var property in details) {
+                    var encodedKey = encodeURIComponent(property);
+                    var encodedValue = encodeURIComponent(details[property]);
+                    formBody.push(encodedKey + "=" + encodedValue);
+                }
+                formBody = formBody.join("&");
+
+                fetch('https://docs.google.com/forms/u/0/d/e/1FAIpQLSczH_8JFCE8W-TUiKFgBNoBke9g1XLW2TlihTm-_hfY03ldSw/formResponse', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'User-Agent': 'insomnia/9.0.0'
+                    },
+                    body: formBody
+                })
+
+                document.getElementById("submit").remove();
+
+            });
+
+        } else if (lSeperate[2].includes("youtu.be")) {
+            
+            $.get("https://www.googleapis.com/youtube/v3/videos?part=snippet&id=" + lSeperate[3] + "&key=" + ytApiKey, function(data) {
+
+                console.log(data);
+
+                if (gIT("inName").length >= 1) {
+
+                    pName = gIT("inName")
+
+                } else {
+
+                    pName = data.items[0].snippet.channelTitle;
+
+                }
+
+                var details = {
+                    'entry.1501102710': gIT("inId"),
+                    'entry.863109178': gIT("inSpeed"),
+                    'entry.1017646927': pName,
+                    'entry.1622600394': gIT("inFeel"),
+                    'entry.662649267': data.items[0].snippet.title,
+                    'entry.188528298': 'https://www.youtube.com/watch?v=' + lSeperate[3],
+                    'entry.1922370523': data.items[0].snippet.publishedAt,
+                    'entry.1155066920': gIT("inTE"),
+                    'entry.1594163639': gIT("inE"),
+                    'entry.1084592024': gIT("inEP"),
+                    'entry.169503435': gIT("inP"),
+                    'entry.1398756494': gIT("inLP"),
+                    'entry.17648355': gIT("inL"),
+                    'entry.1591042310': strict
+                };
+
+                var formBody = [];
+                for (var property in details) {
+                    var encodedKey = encodeURIComponent(property);
+                    var encodedValue = encodeURIComponent(details[property]);
+                    formBody.push(encodedKey + "=" + encodedValue);
+                }
+                formBody = formBody.join("&");
+
+                fetch('https://docs.google.com/forms/u/0/d/e/1FAIpQLSczH_8JFCE8W-TUiKFgBNoBke9g1XLW2TlihTm-_hfY03ldSw/formResponse', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'User-Agent': 'insomnia/9.0.0'
+                    },
+                    body: formBody
+                })
+
+                document.getElementById("submit").remove();
+
+            });
+            
+        }
+
+    }
+
+    function gIT(i) {
+
+        return document.getElementById(i).value;
+
+    }
+
+    function calcAcc(te, e, ep, p, lp, l) {
+
+        return 100 * ((diffs[0]*te + diffs[1]*e + diffs[2]*ep + diffs[3]*p + diffs[4]*lp + diffs[5]*l) / (te+e+ep+p+lp+l));
+
+    }
+
+    function korean() {
+
+        
+
+    }
+
+</script>
