@@ -43,19 +43,9 @@
                 <input class="input" id="inL">
 
             </div>
-            
-            <p id="modeTitle" style="font-size:50px;">
-                --- JUDGEMENT ---
+            <p id="modeDesc" style="font-size:45px;">
+                !!! WE ONLY ACCEPT STRICT CLEARS !!!
             </p>
-            <p id="modeDesc" style="font-size:30px;">
-                WE DONT ACCEPT NORMAL CLEARS
-            </p>
-            <div id="mode">
-                <input type="radio" id="Yes" name="mode">
-                <label for="Yes">Strict</label><br>
-                <input type="radio" id="No" name="mode">
-                <label for="No">Normal</label><br>
-            </div>
             <button onclick="Submit()" class="input" id="submit" style="font-size:40px;">Submit!</button>
         </div>
         <input id="searchBar" placeholder="Level Name">
@@ -351,7 +341,7 @@
     #acc {
         top: 45%;
         font-size: 50px;
-        left: 33%;
+        left: 50%;
         transform: translate(-50%, -50%);
     }
 
@@ -363,9 +353,9 @@
     }
 
     #modeDesc {
-        top: 53%;
+        top: 0%;
         font-size: 50px;
-        left: 72%;
+        left: 50%;
         transform: translate(-50%, -50%);
     }
 
@@ -440,7 +430,7 @@
         width: 45%;
         height: 25%;
         border-radius: 20px;
-        left: 33%;
+        left: 50%;
         position: absolute;
         transform: translate(-50%, -100%);
         top: 85%;
@@ -823,10 +813,6 @@
         var ytSpecial = yL.split("?v=");
         var lSeperate = yL.split("/");
         var pName = "";
-        var strict = "";
-
-        if ($('#Yes').is(':checked')) { strict = "yes"; }
-        if ($('#No').is(':checked')) { strict = "no"; }
 
         if (lSeperate[2].includes("youtube.com")) {
 
@@ -857,8 +843,7 @@
                     'entry.1084592024': gIT("inEP"),
                     'entry.169503435': gIT("inP"),
                     'entry.1398756494': gIT("inLP"),
-                    'entry.17648355': gIT("inL"),
-                    'entry.1591042310': strict
+                    'entry.17648355': gIT("inL")
                 };
 
                 var formBody = [];
@@ -911,8 +896,7 @@
                     'entry.1084592024': gIT("inEP"),
                     'entry.169503435': gIT("inP"),
                     'entry.1398756494': gIT("inLP"),
-                    'entry.17648355': gIT("inL"),
-                    'entry.1591042310': strict
+                    'entry.17648355': gIT("inL")
                 };
 
                 var formBody = [];
